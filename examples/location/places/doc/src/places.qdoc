@@ -9,7 +9,8 @@
     \brief The Places example demonstrates how to search for Places and access
            related content.
 
-    \image places.png
+    \image places.png {Places example with a search box and a map of Oslo
+           showing a marker labeled "The Qt Company"}
 
     The Places example demonstrates how to search for Places. In particular it shows
     how further information such as reviews, images and related content can be retrieved.
@@ -107,7 +108,7 @@
 
     First some of the model's properties are set, which will be used to form the search request.
     The \l {PlaceSearchModel::searchArea}{searchArea} property is set to the
-    \e searchRegion object which is a \l [QML]{geocircle} with a center that is linked to the current
+    \e searchRegion object which is a \l [QML]{geoCircle} with a center that is linked to the current
     location displayed on the \l Map.
 
     Finally, we define three helper functions \b searchForCategory(), \b {searchForText()} and

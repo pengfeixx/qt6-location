@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVESEARCHRESULTMODEL_P_H
 #define QDECLARATIVESEARCHRESULTMODEL_P_H
@@ -43,20 +44,20 @@ class Q_LOCATION_EXPORT QDeclarativeSearchResultModel : public QDeclarativeSearc
 
     Q_PROPERTY(bool incremental MEMBER m_incremental NOTIFY incrementalChanged REVISION(5, 12))
 
-    Q_ENUMS(SearchResultType RelevanceHint)
-
 public:
     enum SearchResultType {
         UnknownSearchResult = QPlaceSearchResult::UnknownSearchResult,
         PlaceResult = QPlaceSearchResult::PlaceResult,
         ProposedSearchResult = QPlaceSearchResult::ProposedSearchResult
     };
+    Q_ENUM(SearchResultType)
 
     enum RelevanceHint {
         UnspecifiedHint = QPlaceSearchRequest::UnspecifiedHint,
         DistanceHint = QPlaceSearchRequest::DistanceHint,
         LexicalPlaceNameHint = QPlaceSearchRequest::LexicalPlaceNameHint
     };
+    Q_ENUM(RelevanceHint)
 
     explicit QDeclarativeSearchResultModel(QObject *parent = nullptr);
     ~QDeclarativeSearchResultModel();

@@ -9,7 +9,8 @@
     \brief The \c {Plane Spotter} example demonstrates the tight integration of
     location and positioning data types into QML.
 
-    \image planespotter.png
+    \image planespotter.png {Map of northern Europe with two plane
+           markers labeled "QML" and "C++"}
 
     The \c {Plane Spotter} example demonstrates how to integrate location and positioning
     related C++ data types into QML and vice versa. This is useful when it is desirable to
@@ -63,7 +64,7 @@
     exchange of position data through the C++/QML boundary.
 
     The visual representation of each \c Plane is done using
-    the \l MapQuickItem type which permits the embedding of arbitrary QtQuick items
+    the \l MapQuickItem type which permits the embedding of arbitrary \l[QML]{QtQuick} items
     into a map:
 
     \snippet planespotter/Plane.qml PlaneMapQuick1
@@ -92,7 +93,8 @@
     \snippet planespotter/planespotter.qml CppPlane1
     \snippet planespotter/planespotter.qml CppPlane2
 
-    \l {azimuthTo}() calculates the bearing in degrees from one coordinate to another.
+    \l {geoCoordinate::azimuthTo}{azimuthTo()} calculates the bearing in degrees
+    from one coordinate to another.
     Note that the above code utilizes a QML animation to tie the rotation
     and the position change into a single animation flow:
 

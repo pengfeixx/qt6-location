@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVEGEOMAPITEMBASE_H
 #define QDECLARATIVEGEOMAPITEMBASE_H
@@ -28,6 +29,8 @@
 #include <QScopedPointer>
 #include <QtQuickShapes/private/qquickshape_p.h>
 
+#include <QtCore/qpointer.h>
+
 QT_BEGIN_NAMESPACE
 
 struct Q_LOCATION_EXPORT QGeoMapViewportChangeEvent
@@ -49,7 +52,6 @@ class Q_LOCATION_EXPORT QDeclarativeGeoMapItemBase : public QQuickItem
     QML_NAMED_ELEMENT(GeoMapItemBase)
     QML_ADDED_IN_VERSION(5, 0)
     QML_UNCREATABLE("GeoMapItemBase is not intended instantiable by developer.")
-    Q_ENUMS(ReferenceSurface)
 
     Q_PROPERTY(QGeoShape geoShape READ geoShape WRITE setGeoShape STORED false )
     Q_PROPERTY(bool autoFadeIn READ autoFadeIn WRITE setAutoFadeIn REVISION(5, 14))
@@ -106,8 +108,8 @@ public:
 
 Q_SIGNALS:
     void mapItemOpacityChanged();
-    Q_REVISION(12) void addTransitionFinished();
-    Q_REVISION(12) void removeTransitionFinished();
+    Q_REVISION(5, 12) void addTransitionFinished();
+    Q_REVISION(5, 12) void removeTransitionFinished();
     void referenceSurfaceChanged();
     void lodThresholdChanged();
 

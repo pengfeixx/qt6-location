@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVESUPPORTEDCATEGORIESMODEL_H
 #define QDECLARATIVESUPPORTEDCATEGORIESMODEL_H
@@ -41,14 +42,11 @@ class Q_LOCATION_EXPORT QDeclarativeSupportedCategoriesModel : public QAbstractI
     QML_NAMED_ELEMENT(CategoryModel)
     QML_ADDED_IN_VERSION(5, 0)
 
-    Q_ENUMS(Status)
-
     Q_PROPERTY(QDeclarativeGeoServiceProvider *plugin READ plugin WRITE setPlugin NOTIFY pluginChanged)
     Q_PROPERTY(bool hierarchical READ hierarchical WRITE setHierarchical NOTIFY hierarchicalChanged)
     Q_PROPERTY(Status status READ status NOTIFY statusChanged)
 
     Q_INTERFACES(QQmlParserStatus)
-    Q_ENUMS(Roles) //The Roles enum is for internal usage only.
 
 public:
     explicit QDeclarativeSupportedCategoriesModel(QObject *parent = nullptr);
@@ -72,8 +70,10 @@ public:
         CategoryRole = Qt::UserRole,
         ParentCategoryRole
     };  //for internal usage only
+    Q_ENUM(Roles)
 
     enum Status {Null, Ready, Loading, Error};
+    Q_ENUM(Status)
 
     void setPlugin(QDeclarativeGeoServiceProvider *plugin);
     QDeclarativeGeoServiceProvider *plugin() const;

@@ -1,5 +1,6 @@
 // Copyright (C) 2016 Aaron McCarthy <mccarthy.aaron@gmail.com>
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qgeocodereplyosm.h"
 
@@ -61,6 +62,7 @@ static QGeoAddress parseAddressObject(const QJsonObject &object)
     address.setPostalCode(ao.value(QStringLiteral("postcode")).toString());
     // setStreet
     address.setStreet(ao.value(QStringLiteral("road")).toString());
+    address.setStreetNumber(ao.value(QStringLiteral("house_number")).toString());
     return address;
 }
 

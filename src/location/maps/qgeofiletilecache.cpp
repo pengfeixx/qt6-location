@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:filesystem-manipulation
 #include "qgeofiletilecache_p.h"
 
 #include "qgeotilespec_p.h"
@@ -12,7 +13,11 @@
 #include <QPixmap>
 #include <QDebug>
 
+#include <QtCore/qsavefile.h>
+
 QT_BEGIN_NAMESPACE
+
+using namespace Qt::StringLiterals;
 
 class QGeoCachedTileMemory
 {
@@ -270,22 +275,32 @@ void QGeoFileTileCache::clearAll()
     QDir dir(directory_);
     dir.setNameFilters(QStringList() << QLatin1String("*-*-*-*.*"));
     dir.setFilter(QDir::Files);
-    for (const QString &dirFile : dir.entryList()) {
+    const auto entries = dir.entryList();
+    for (const QString &dirFile : entries) {
         dir.remove(dirFile);
     }
 }
 
 void QGeoFileTileCache::clearMapId(const int mapId)
 {
-    for (const QGeoTileSpec &k : diskCache_.keys())
-        if (k.mapId() == mapId)
-            diskCache_.remove(k, true);
-    for (const QGeoTileSpec &k : memoryCache_.keys())
-        if (k.mapId() == mapId)
-            memoryCache_.remove(k);
-    for (const QGeoTileSpec &k : textureCache_.keys())
-        if (k.mapId() == mapId)
-            textureCache_.remove(k);
+    {
+        const auto keys = diskCache_.keys();
+        for (const QGeoTileSpec &k : keys)
+            if (k.mapId() == mapId)
+                diskCache_.remove(k, true);
+    }
+    {
+        const auto keys = memoryCache_.keys();
+        for (const QGeoTileSpec &k : keys)
+            if (k.mapId() == mapId)
+                memoryCache_.remove(k);
+    }
+    {
+        const auto keys = textureCache_.keys();
+        for (const QGeoTileSpec &k : keys)
+            if (k.mapId() == mapId)
+                textureCache_.remove(k);
+    }
 
     // TODO: It seems the cache leaves residues, like some tiles do not get picked up.
     // After the above calls, files that shouldnt be left behind are still on disk.
@@ -455,23 +470,29 @@ QSharedPointer<QGeoCachedTileDisk> QGeoFileTileCache::addToDiskCache(const QGeoT
 
 bool QGeoFileTileCache::addToDiskCache(const QGeoTileSpec &spec, const QString &filename, const QByteArray &bytes)
 {
+    int cost = 1;
+    if (costStrategyDisk_ == ByteSize)
+        cost = bytes.size();
+
+    if (cost > diskCache_.maxCost())
+        return false; // insert() would fail anyway, so don't even try
+
+    QSaveFile file(filename);
+    if (!file.open(QIODevice::WriteOnly))
+        return false;
+    file.write(bytes);
+    if (!file.commit())
+        return false;
+
     QSharedPointer<QGeoCachedTileDisk> td(new QGeoCachedTileDisk);
     td->spec = spec;
     td->filename = filename;
     td->cache = this;
 
-    int cost = 1;
-    if (costStrategyDisk_ == ByteSize)
-        cost = bytes.size();
+    [[maybe_unused]] const bool inserted = diskCache_.insert(spec, td, cost);
+    Q_ASSERT(inserted);
 
-    if (diskCache_.insert(spec, td, cost)) {
-        QFile file(filename);
-        file.open(QIODevice::WriteOnly);
-        file.write(bytes);
-        file.close();
-        return true;
-    }
-    return false;
+    return true;
 }
 
 void QGeoFileTileCache::addToMemoryCache(const QGeoTileSpec &spec, const QByteArray &bytes, const QString &format)
@@ -531,7 +552,10 @@ QSharedPointer<QGeoTileTexture> QGeoFileTileCache::getFromDisk(const QGeoTileSpe
     if (td) {
         const QString format = QFileInfo(td->filename).suffix();
         QFile file(td->filename);
-        file.open(QIODevice::ReadOnly);
+        if (!file.open(QIODevice::ReadOnly)) {
+            handleError(spec, "Cannot open file %1: %2"_L1.arg(file.fileName(), file.errorString()));
+            return nullptr;
+        }
         QByteArray bytes = file.readAll();
         file.close();
 

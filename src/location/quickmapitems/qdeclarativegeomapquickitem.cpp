@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativegeomapquickitem_p.h"
 
@@ -7,6 +8,7 @@
 #include <QtQml/qqmlinfo.h>
 #include <QtQuick/QSGOpacityNode>
 #include <QtPositioning/private/qdoublevector2d_p.h>
+#include <QtQuick/private/qquickitem_p.h>
 #include <QtQuick/private/qquickmousearea_p.h>
 #include <QtLocation/private/qgeomap_p.h>
 #include <QtLocation/private/qgeoprojection_p.h>
@@ -79,7 +81,7 @@ QT_BEGIN_NAMESPACE
     \snippet mapviewer/map/Marker.qml mqi-closeimage
     \snippet mapviewer/map/Marker.qml mqi-close
 
-    \image api-mapquickitem.png
+    \image api-mapquickitem.png {Marker rendered as a teardrop pin on a map}
 */
 
 /*!
@@ -132,7 +134,8 @@ QDeclarativeGeoMapQuickItem::~QDeclarativeGeoMapQuickItem() {}
     for the value of their anchorPoint properties. The values of anchorPoint
     for each are written on top of the item.
 
-    \image api-mapquickitem-anchor.png
+    \image api-mapquickitem-anchor.png {Three markers on a map showing
+           the effect of different anchor points}
 */
 void QDeclarativeGeoMapQuickItem::setCoordinate(const QGeoCoordinate &coordinate)
 {
@@ -235,7 +238,7 @@ void QDeclarativeGeoMapQuickItem::afterChildrenChanged()
 }
 
 /*!
-    \qmlproperty QPointF MapQuickItem::anchorPoint
+    \qmlproperty point MapQuickItem::anchorPoint
 
     This property determines which point on the sourceItem that will be lined
     up with the coordinate on the map.
@@ -307,6 +310,18 @@ void QDeclarativeGeoMapQuickItem::setGeoShape(const QGeoShape &shape)
     polishAndUpdate();
     emit coordinateChanged();
 
+}
+
+bool QDeclarativeGeoMapQuickItem::contains(const QPointF &point) const
+{
+    if (zoomLevel_ != 0) {
+        // This follows the mathematical principle of
+        // QDeclarativeGeoMap::fitViewportToMapItemsRefine but in a shorter way:
+        const QTransform t = matrix_->m_matrix.toTransform();
+        const QPointF transformedPoint = t.inverted().map(point);
+        return QQuickItem::contains(transformedPoint);
+    }
+    return QQuickItem::contains(point);
 }
 
 /*!

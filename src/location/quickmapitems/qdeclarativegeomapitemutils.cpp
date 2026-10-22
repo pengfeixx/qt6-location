@@ -1,6 +1,7 @@
 // Copyright (C) 2020 Paolo Angelelli <paolo.angelelli@gmail.com>
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativegeomapitemutils_p.h"
 
@@ -195,6 +196,8 @@ QList<QGeoCoordinate> greaterCirclePath(const QList<QGeoCoordinate> &cornerPoint
                                         greaterCirclePathForm form, int N)
 {
     QList<QGeoCoordinate> path;
+    if (cornerPoints.empty())
+        return path;
     path.reserve(N);
     //If the path has to be closed we include the first coordinate again at the end of the procedure
     qsizetype lineCount = cornerPoints.size() - ((form == OpenPath) ? 1 : 0);

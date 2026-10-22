@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QOSRMROUTEPARSER_P_H
 #define QOSRMROUTEPARSER_P_H
@@ -29,12 +30,13 @@ class Q_LOCATION_EXPORT QGeoRouteParser : public QObject
     Q_OBJECT
     Q_DECLARE_PRIVATE(QGeoRouteParser)
     Q_PROPERTY(TrafficSide trafficSide READ trafficSide WRITE setTrafficSide NOTIFY trafficSideChanged)
-    Q_ENUMS(TrafficSide)
 public:
     enum TrafficSide {
         RightHandTraffic,
         LeftHandTraffic
     };
+    Q_ENUM(TrafficSide)
+
     virtual ~QGeoRouteParser();
     QGeoRouteReply::Error parseReply(QList<QGeoRoute> &routes, QString &errorString, const QByteArray &reply) const;
     QUrl requestUrl(const QGeoRouteRequest &request, const QString &prefix) const;

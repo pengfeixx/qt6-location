@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QGEOMANEUVER_H
 #define QGEOMANEUVER_H
@@ -21,7 +22,6 @@ class Q_LOCATION_EXPORT QGeoManeuver
     Q_GADGET
     QML_VALUE_TYPE(routeManeuver)
     QML_STRUCTURED_VALUE
-    Q_ENUMS(InstructionDirection)
 
     Q_PROPERTY(bool valid READ isValid CONSTANT)
     Q_PROPERTY(QGeoCoordinate position READ position CONSTANT)
@@ -47,6 +47,7 @@ public:
         DirectionLightLeft,
         DirectionBearLeft
     };
+    Q_ENUM(InstructionDirection)
 
     QGeoManeuver();
     QGeoManeuver(const QGeoManeuver &other) noexcept;

@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVEGEOMAP_H
 #define QDECLARATIVEGEOMAP_H
@@ -42,7 +43,7 @@ class Q_LOCATION_EXPORT QDeclarativeGeoMap : public QQuickItem
     Q_OBJECT
     QML_NAMED_ELEMENT(Map)
     QML_ADDED_IN_VERSION(5, 0)
-    Q_ENUMS(QGeoServiceProvider::Error)
+
     Q_PROPERTY(QDeclarativeGeoServiceProvider *plugin READ plugin WRITE setPlugin NOTIFY pluginChanged)
     Q_PROPERTY(qreal minimumZoomLevel READ minimumZoomLevel WRITE setMinimumZoomLevel NOTIFY minimumZoomLevelChanged)
     Q_PROPERTY(qreal maximumZoomLevel READ maximumZoomLevel WRITE setMaximumZoomLevel NOTIFY maximumZoomLevelChanged)
@@ -152,7 +153,7 @@ public:
     Q_INVOKABLE void pan(int dx, int dy);
     Q_INVOKABLE void prefetchData(); // optional hint for prefetch
     Q_INVOKABLE void clearData();
-    Q_REVISION(13) Q_INVOKABLE void fitViewportToGeoShape(const QGeoShape &shape, QVariant margins);
+    Q_REVISION(5, 13) Q_INVOKABLE void fitViewportToGeoShape(const QGeoShape &shape, QVariant margins);
     void fitViewportToGeoShape(const QGeoShape &shape, const QMargins &borders = QMargins(10, 10, 10, 10));
 
     QString errorString() const;
@@ -186,7 +187,7 @@ Q_SIGNALS:
     void copyrightsChanged(const QString &copyrightsHtml);
     void mapReadyChanged(bool ready);
     void visibleAreaChanged();
-    Q_REVISION(14) void visibleRegionChanged();
+    Q_REVISION(5, 14) void visibleRegionChanged();
 
 protected:
     void componentComplete() override;

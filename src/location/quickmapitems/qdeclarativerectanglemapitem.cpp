@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativerectanglemapitem_p.h"
 #include "qdeclarativerectanglemapitem_p_p.h"
@@ -35,7 +36,7 @@ QT_BEGIN_NAMESPACE
     right side have the same longitude.
 
     To specify the rectangle, it requires a \l topLeft and \l bottomRight point,
-    both given by a \l {coordinate}.
+    both given by a \l [QtPositioning]{geoCoordinate}.
 
     By default, the rectangle is displayed with transparent fill and a 1-pixel
     thick black border. This can be changed using the \l color, \l border.color
@@ -70,7 +71,7 @@ QT_BEGIN_NAMESPACE
     }
     \endcode
 
-    \image api-maprectangle.png
+    \image api-maprectangle.png {Green rectangle on a map}
 */
 
 /*!

@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativegeomap_p.h"
 #include "qdeclarativegeomapquickitem_p.h"
@@ -65,9 +66,10 @@ static qreal sanitizeBearing(qreal bearing)
 
     The geographic region displayed in the Map item is referred to as its
     viewport, and this is defined by the properties \l center, and
-    \l zoomLevel. The \l center property contains a \l {coordinate}
-    specifying the center of the viewport, while \l zoomLevel controls the scale of the
-    map. See each of these properties for further details about their values.
+    \l zoomLevel. The \l center property contains a
+    \l [QtPositioning]{geoCoordinate} specifying the center of the viewport,
+    while \l zoomLevel controls the scale of the map. See each of these
+    properties for further details about their values.
 
     When the map is displayed, each possible geographic coordinate that is
     visible will map to some pixel X and Y coordinate on the screen. To perform
@@ -113,7 +115,7 @@ static qreal sanitizeBearing(qreal bearing)
     \skipto Plugin
     \printuntil
 
-    \image minimal_map.png
+    \image minimal_map.png {Map item centered on Oslo at zoom level 14}
 */
 
 /*!
@@ -1060,7 +1062,7 @@ QGeoCoordinate QDeclarativeGeoMap::center() const
 
 
 /*!
-    \qmlproperty geoshape QtLocation::Map::visibleRegion
+    \qmlproperty geoShape QtLocation::Map::visibleRegion
 
     This property holds the region which occupies the viewport of
     the map. The camera is positioned in the center of the shape, and

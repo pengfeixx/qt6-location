@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:network-protocol
 
 #include "qgeorouteparserosrmv4_p.h"
 #include "qgeoroutesegment.h"
@@ -354,7 +355,8 @@ QUrl QGeoRouteParserOsrmV4Private::requestUrl(const QGeoRouteRequest &request, c
 
     query.addQueryItem(QStringLiteral("instructions"), QStringLiteral("true"));
 
-    for (const QGeoCoordinate &c : request.waypoints()) {
+    const auto wayPoints = request.waypoints();
+    for (const QGeoCoordinate &c : wayPoints) {
         query.addQueryItem(QStringLiteral("loc"), QString::number(c.latitude()) + QLatin1Char(',') +
                                                  QString::number(c.longitude()));
     }

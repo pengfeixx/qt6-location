@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:filesystem-manipulation
 
 #include "qgeofiletilecacheosm.h"
 #include <QtLocation/private/qgeotilespec_p.h>
@@ -83,7 +84,7 @@ void QGeoFileTileCacheOsm::init()
 
     // find max mapId
     int max = 0;
-    for (auto p: m_providers)
+    for (auto p: std::as_const(m_providers))
         if (p->mapType().mapId() > max)
             max = p->mapType().mapId();
     // Create a mapId to maxTimestamp LUT..
@@ -93,7 +94,7 @@ void QGeoFileTileCacheOsm::init()
     QDir dir(directory_);
     QStringList formats;
     formats << QLatin1String("*.*");
-    QStringList files = dir.entryList(formats, QDir::Files);
+    const QStringList files = dir.entryList(formats, QDir::Files);
 
     for (const QString &tileFileName : files) {
         QGeoTileSpec spec = filenameToTileSpec(tileFileName);
@@ -107,7 +108,7 @@ void QGeoFileTileCacheOsm::init()
     // Base class ::init()
     QGeoFileTileCache::init();
 
-    for (QGeoTileProviderOsm * p: m_providers)
+    for (QGeoTileProviderOsm * p: std::as_const(m_providers))
         clearObsoleteTiles(p);
 }
 
@@ -143,21 +144,26 @@ QSharedPointer<QGeoTileTexture> QGeoFileTileCacheOsm::getFromOfflineStorage(cons
 
 void QGeoFileTileCacheOsm::dropTiles(int mapId)
 {
-    QList<QGeoTileSpec> keys;
-    keys = textureCache_.keys();
-    for (const QGeoTileSpec &k : keys)
-        if (k.mapId() == mapId)
-            textureCache_.remove(k);
+    {
+        const QList<QGeoTileSpec> keys = textureCache_.keys();
+        for (const QGeoTileSpec &k : keys)
+            if (k.mapId() == mapId)
+                textureCache_.remove(k);
+    }
 
-    keys = memoryCache_.keys();
-    for (const QGeoTileSpec &k : keys)
-        if (k.mapId() == mapId)
-            memoryCache_.remove(k);
+    {
+        const QList<QGeoTileSpec> keys = memoryCache_.keys();
+        for (const QGeoTileSpec &k : keys)
+            if (k.mapId() == mapId)
+                memoryCache_.remove(k);
+    }
 
-    keys = diskCache_.keys();
-    for (const QGeoTileSpec &k : keys)
-        if (k.mapId() == mapId)
-            diskCache_.remove(k);
+    {
+        const QList<QGeoTileSpec> keys =  diskCache_.keys();
+        for (const QGeoTileSpec &k : keys)
+            if (k.mapId() == mapId)
+                diskCache_.remove(k);
+    }
 }
 
 void QGeoFileTileCacheOsm::loadTiles(int mapId)

@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativeplace_p.h"
 #include "qdeclarativecontactdetails_p.h"
@@ -32,7 +33,8 @@ QT_BEGIN_NAMESPACE
 
     The Place type represents a physical location with additional metadata describing that
     location.  Contrasted with \l Location, \l Address, and
-    \l {coordinate} type which are used to describe where a location is.
+    \l [QtPositioning]{geoCoordinate} type, which are used to describe where a
+    location is.
     The basic properties of a Place are its \l name and \l location.
 
     Place objects are typically obtained from a search model and will generally only have their
@@ -149,7 +151,7 @@ QT_BEGIN_NAMESPACE
 
 QDeclarativePlace::QDeclarativePlace(QObject *parent)
 :   QObject(parent),
-    m_extendedAttributes(new QQmlPropertyMap(this)),
+    m_extendedAttributes(QQmlPropertyMap::create(this)),
     m_contactDetails(new QDeclarativeContactDetails(this))
 {
     connect(m_contactDetails, &QDeclarativeContactDetails::valueChanged,
@@ -160,7 +162,7 @@ QDeclarativePlace::QDeclarativePlace(QObject *parent)
 
 QDeclarativePlace::QDeclarativePlace(const QPlace &src, QDeclarativeGeoServiceProvider *plugin, QObject *parent)
 :   QObject(parent),
-    m_extendedAttributes(new QQmlPropertyMap(this)),
+    m_extendedAttributes(QQmlPropertyMap::create(this)),
     m_contactDetails(new QDeclarativeContactDetails(this)),
     m_plugin(plugin)
 {

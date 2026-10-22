@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 #include "qabstractgeotilecache_p.h"
 
 #include "qgeotilespec_p.h"
@@ -11,8 +12,11 @@
 #include <QMetaType>
 #include <QPixmap>
 #include <QDebug>
+#include <QtCore/qtemporaryfile.h>
 
 QT_BEGIN_NAMESPACE
+
+using namespace Qt::StringLiterals;
 
 QAbstractGeoTileCache::QAbstractGeoTileCache(QObject *parent)
     : QObject(parent)
@@ -80,11 +84,16 @@ QString QAbstractGeoTileCache::baseCacheDirectory()
         static bool writableChecked = false;
         if (!writableChecked) {
             writableChecked = true;
-            QDir::root().mkpath(dir);
-            QFile writeTestFile(QDir(dir).filePath(QStringLiteral("qt_cache_check")));
-            writable = writeTestFile.open(QIODevice::WriteOnly);
-            if (writable)
-                writeTestFile.remove();
+            auto mkpath = [] (const QString &dir) {
+                const auto rt = QDir::root();
+                return rt.mkpath(dir);
+            };
+            if (mkpath(dir)) {
+                QTemporaryFile tmp(QDir(dir).filePath(u"qt_cache_check.XXXXXX"_s));
+                writable = tmp.open();
+            } else {
+                writable = false;
+            }
         }
         if (!writable)
             dir = QString();

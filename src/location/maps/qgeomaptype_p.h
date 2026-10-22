@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QGEOMAPTYPE_H
 #define QGEOMAPTYPE_H
@@ -33,7 +34,6 @@ class Q_LOCATION_EXPORT QGeoMapType
     Q_GADGET
     QML_VALUE_TYPE(mapType)
     QML_STRUCTURED_VALUE
-    Q_ENUMS(MapStyle)
 
     Q_PROPERTY(MapStyle style READ style CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
@@ -59,6 +59,7 @@ public:
         CycleMap,
         CustomMap = 100
     };
+    Q_ENUM(MapStyle)
 
     QGeoMapType();
     QGeoMapType(const QGeoMapType &other) noexcept;

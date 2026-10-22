@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativesearchsuggestionmodel_p.h"
 #include "qdeclarativegeoserviceprovider_p.h"
@@ -69,13 +70,13 @@ QT_BEGIN_NAMESPACE
 */
 
 /*!
-    \qmlproperty geoshape PlaceSearchSuggestionModel::searchArea
+    \qmlproperty geoShape PlaceSearchSuggestionModel::searchArea
 
     This property holds the search area.  Search suggestion results returned by the model will be
     relevant to the given search area.
 
-    If this property is set to a \l {geocircle} its
-    \l {geocircle}{radius} property may be left unset, in which case the \l Plugin
+    If this property is set to a \l {geoCircle} its
+    \l {geoCircle}{radius} property may be left unset, in which case the \l Plugin
     will choose an appropriate radius for the search.
 */
 
@@ -177,7 +178,7 @@ QT_BEGIN_NAMESPACE
 
 
 /*!
-    \qmlmethod string QtLocation::PlaceSearchSuggestionModel::errorString() const
+    \qmlmethod string QtLocation::PlaceSearchSuggestionModel::errorString()
 
     This read-only property holds the textual presentation of the latest search suggestion model error.
     If no error has occurred, or if the model was cleared, an empty string is returned.

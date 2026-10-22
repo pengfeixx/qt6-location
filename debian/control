@@ -1,35 +1,33 @@
 Source: qt6-location
 Section: libs
-Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
 Uploaders: Patrick Franz <deltaone@debian.org>,
-Build-Depends: cmake (>= 3.24~),
-               debhelper-compat (= 13),
+Build-Depends: debhelper-compat (= 13),
                dh-sequence-pkgkde-symbolshelper,
                dh-sequence-qmldeps,
+               cmake (>= 3.24~),
                ninja-build,
                pkg-kde-tools,
                pkgconf,
-               qt6-base-dev (>= 6.8.0),
-               qt6-declarative-dev (>= 6.8.0),
-               qt6-declarative-private-dev (>= 6.8.0),
-               qt6-positioning-dev (>= 6.8.0~),
-               qt6-positioning-private-dev (>= 6.8.0~),
-               qt6-shadertools-dev (>= 6.8.0~),
-	       qml6-module-qt-labs-animation,
-Build-Depends-Indep: qt6-base-dev (>= 6.8~) <!nodoc>,
-                     qt6-documentation-tools (>= 6.8~) <!nodoc>,
-Standards-Version: 4.7.0
+               qt6-base-dev (>= 6.11.2+dfsg~),
+               qt6-declarative-dev (>= 6.11.2+dfsg~),
+               qt6-declarative-private-dev (>= 6.11.2+dfsg~),
+               qt6-positioning-dev (>= 6.11.2~),
+               qt6-positioning-private-dev (>= 6.11.2~),
+               qt6-shadertools-dev (>= 6.11.2~),
+Build-Depends-Indep: qt6-base-dev (>= 6.11~) <!nodoc>,
+                     qt6-documentation-tools (>= 6.11~) <!nodoc>,
+Standards-Version: 4.7.4
 Homepage: https://www.qt.io/developers/
 Vcs-Browser: https://salsa.debian.org/qt-kde-team/qt6/qt6-location.git
 Vcs-Git: https://salsa.debian.org/qt-kde-team/qt6/qt6-location
-Rules-Requires-Root: no
 
 Package: libqt6location6
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends},
-Depends: ${misc:Depends}, ${shlibs:Depends},
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
 Description: Qt 6 Location library
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -40,7 +38,9 @@ Package: qml6-module-qtlocation
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends},
-Depends: ${misc:Depends}, ${qml6:Depends}, ${shlibs:Depends},
+Depends: ${misc:Depends},
+         ${qml6:Depends},
+         ${shlibs:Depends},
 Description: Qt 6 Location QML module
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -51,7 +51,8 @@ Package: qt6-location-plugins
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends},
-Depends: ${misc:Depends}, ${shlibs:Depends},
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
 Description: Qt 6 Location plugins
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -64,6 +65,9 @@ Multi-Arch: same
 Section: libdevel
 Depends: libqt6location6 (= ${binary:Version}),
          qml6-module-qtlocation (= ${binary:Version}),
+         qt6-base-dev,
+         qt6-declarative-dev,
+         qt6-positioning-dev,
          ${misc:Depends},
 Description: Qt 6 declarative development files
  Qt is a cross-platform C++ application framework. Qt's primary feature
@@ -73,9 +77,11 @@ Description: Qt 6 declarative development files
  Qt 6 applications using Qt 6 declarative headers.
 
 Package: qt6-location-doc
+Build-Profiles: <!nodoc>
 Architecture: all
 Section: doc
-Depends: qt6-base-doc, ${misc:Depends},
+Depends: qt6-base-doc,
+         ${misc:Depends},
 Multi-Arch: foreign
 Description: Qt 6 Location documentation
  Qt is a cross-platform C++ application framework. Qt's primary feature
@@ -84,9 +90,11 @@ Description: Qt 6 Location documentation
  This package contains the documentation for Qt 6 Location.
 
 Package: qt6-location-doc-html
+Build-Profiles: <!nodoc>
 Architecture: all
 Section: doc
-Depends: qt6-base-doc-html, ${misc:Depends},
+Depends: qt6-base-doc-html,
+         ${misc:Depends},
 Multi-Arch: foreign
 Description: Qt 6 Location HTML documentation
  Qt is a cross-platform C++ application framework. Qt's primary feature
@@ -95,9 +103,11 @@ Description: Qt 6 Location HTML documentation
  This package contains the HTML documentation for Qt 6 Location.
 
 Package: qt6-location-doc-dev
+Build-Profiles: <!nodoc>
 Architecture: all
 Section: libdevel
-Depends: qt6-base-doc-dev, ${misc:Depends},
+Depends: qt6-base-doc-dev,
+         ${misc:Depends},
 Multi-Arch: foreign
 Description: Qt 6 Location tags files
  Qt is a cross-platform C++ application framework. Qt's primary feature
@@ -110,7 +120,8 @@ Package: qt6-location-examples
 Architecture: any
 Multi-Arch: same
 Section: misc
-Depends: ${misc:Depends}, ${shlibs:Depends},
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
 Description: Qt 6 Location examples
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.

@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QGEOROUTE_H
 #define QGEOROUTE_H
@@ -10,7 +11,7 @@
 #include <QtCore/QExplicitlySharedDataPointer>
 #include <QtCore/QList>
 
-#include "QtQml/qqml.h"
+#include <QtQml/qqml.h>
 
 QT_BEGIN_NAMESPACE
 

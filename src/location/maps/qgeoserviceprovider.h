@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QGEOSERVICEPROVIDER_H
 #define QGEOSERVICEPROVIDER_H
@@ -26,7 +27,6 @@ class QQmlEngine;
 class Q_LOCATION_EXPORT QGeoServiceProvider : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(Error)
 public:
     enum Error {
         NoError,
@@ -36,6 +36,7 @@ public:
         ConnectionError,
         LoaderError
     };
+    Q_ENUM(Error)
 
     enum RoutingFeature {
         NoRoutingFeatures               = 0,
@@ -89,19 +90,19 @@ public:
     };
 
     Q_DECLARE_FLAGS(RoutingFeatures, RoutingFeature)
-    Q_FLAGS(RoutingFeatures)
+    Q_FLAG(RoutingFeatures)
 
     Q_DECLARE_FLAGS(GeocodingFeatures, GeocodingFeature)
-    Q_FLAGS(GeocodingFeatures)
+    Q_FLAG(GeocodingFeatures)
 
     Q_DECLARE_FLAGS(MappingFeatures, MappingFeature)
-    Q_FLAGS(MappingFeatures)
+    Q_FLAG(MappingFeatures)
 
     Q_DECLARE_FLAGS(PlacesFeatures, PlacesFeature)
-    Q_FLAGS(PlacesFeatures)
+    Q_FLAG(PlacesFeatures)
 
     Q_DECLARE_FLAGS(NavigationFeatures, NavigationFeature)
-    Q_FLAGS(NavigationFeatures)
+    Q_FLAG(NavigationFeatures)
 
     static QStringList availableServiceProviders();
     QGeoServiceProvider(const QString &providerName,

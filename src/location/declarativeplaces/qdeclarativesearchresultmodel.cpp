@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativesearchresultmodel_p.h"
 #include "qdeclarativeplace_p.h"
@@ -174,8 +175,8 @@ QT_BEGIN_NAMESPACE
     This property holds the search area.  The search result returned by the model will be within
     the search area.
 
-    If this property is set to a \l {geocircle} its
-    \l {geocircle}{radius} property may be left unset, in which case the \l Plugin
+    If this property is set to a \l {geoCircle} its
+    \l {geoCircle}{radius} property may be left unset, in which case the \l Plugin
     will choose an appropriate radius for the search.
 
     Support for specifying a search area can vary according to the \l plugin backend
@@ -295,7 +296,7 @@ QT_BEGIN_NAMESPACE
 */
 
 /*!
-    \qmlmethod string PlaceSearchModel::errorString() const
+    \qmlmethod string PlaceSearchModel::errorString()
 
     This read-only property holds the textual presentation of the latest place search model error.
     If no error has occurred or if the model was cleared, an empty string is returned.
@@ -967,7 +968,7 @@ int QDeclarativeSearchResultModel::getRow(const QString &placeId) const
 }
 
 /*!
-    \qmlsignal PlaceSearchResultModel::dataChanged()
+    \qmlsignal PlaceSearchModel::dataChanged()
 
    This signal is emitted when significant changes have been made to the underlying datastore.
 

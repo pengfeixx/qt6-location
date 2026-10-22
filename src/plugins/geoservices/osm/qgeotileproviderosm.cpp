@@ -1,5 +1,6 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:network-protocol
 
 #include "qgeotileproviderosm.h"
 
@@ -153,7 +154,7 @@ void QGeoTileProviderOsm::disableRedirection()
     if (m_provider && m_provider->isValid())
         return;
     bool found = false;
-    for (TileProvider *p: m_providerList) {
+    for (TileProvider *p: std::as_const(m_providerList)) {
         if (p->isValid() && !found) {
             m_provider = p;
             m_providerId = m_providerList.indexOf(p);
@@ -196,6 +197,8 @@ void QGeoTileProviderOsm::onResolutionError(TileProvider *provider)
                     p->resolveProvider();
 #endif
                     emit resolutionRequired();
+                } else {
+                    emit resolutionFinished(this);
                 }
                 break;
             }
@@ -330,6 +333,7 @@ void TileProvider::handleError(QNetworkReply::NetworkError error)
         // Errors we don't expect to recover from in the near future, which
         // prevent accessing the redirection info but not the actual providers.
         m_status = Invalid;
+        break;
     default:
         //qWarning() << "QGeoTileProviderOsm network error:" << error;
         break;
@@ -344,7 +348,8 @@ void TileProvider::onNetworkReplyFinished()
     switch (m_status) {
     case Resolving:
         m_status = Idle;
-    case Idle:    // should not happen
+        break;
+    case Idle: // should not happen
     case Invalid: // should not happen
         break;
     case Valid: // should not happen

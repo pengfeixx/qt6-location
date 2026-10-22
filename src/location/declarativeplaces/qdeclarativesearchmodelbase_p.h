@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVESEARCHMODELBASE_H
 #define QDECLARATIVESEARCHMODELBASE_H
@@ -41,8 +42,6 @@ class Q_LOCATION_EXPORT QDeclarativeSearchModelBase : public QAbstractListModel,
     Q_PROPERTY(bool nextPagesAvailable READ nextPagesAvailable NOTIFY nextPagesAvailableChanged)
     Q_PROPERTY(Status status READ status NOTIFY statusChanged)
 
-    Q_ENUMS(Status)
-
     Q_INTERFACES(QQmlParserStatus)
 
 public:
@@ -52,6 +51,7 @@ public:
         Loading,
         Error
     };
+    Q_ENUM(Status)
 
     explicit QDeclarativeSearchModelBase(QObject *parent = nullptr);
     ~QDeclarativeSearchModelBase();

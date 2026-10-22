@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qgeotiledmappingmanagerengine_p.h"
 #include "qgeotiledmappingmanagerengine_p_p.h"
@@ -18,6 +19,10 @@
 
 QT_BEGIN_NAMESPACE
 
+/*!
+    \class QGeoTiledMappingManagerEngine
+    \internal
+*/
 QGeoTiledMappingManagerEngine::QGeoTiledMappingManagerEngine(QObject *parent)
     : QGeoMappingManagerEngine(parent),
       d_ptr(new QGeoTiledMappingManagerEnginePrivate)
@@ -34,6 +39,7 @@ QGeoTiledMappingManagerEngine::~QGeoTiledMappingManagerEngine()
 
 /*!
     Sets the tile fetcher. Takes ownership of the QObject.
+    \internal
 */
 void QGeoTiledMappingManagerEngine::setTileFetcher(QGeoTileFetcher *fetcher)
 {
@@ -245,6 +251,7 @@ void QGeoTiledMappingManagerEngine::setCacheHint(QAbstractGeoTileCache::CacheAre
 
 /*!
     Sets the tile cache. Takes ownership of the QObject.
+    \internal
 */
 void QGeoTiledMappingManagerEngine::setTileCache(QAbstractGeoTileCache *cache)
 {

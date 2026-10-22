@@ -1,5 +1,6 @@
 // Copyright (C) 2016 Aaron McCarthy <mccarthy.aaron@gmail.com>
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:critical reason:network-protocol
 
 #include "qgeotiledmappingmanagerengineosm.h"
 #include "qgeotilefetcherosm.h"
@@ -79,23 +80,23 @@ QGeoTiledMappingManagerEngineOsm::QGeoTiledMappingManagerEngineOsm(const QVarian
     QList<TileProvider *> providers_terrain;
     QList<TileProvider *> providers_hiking;
     if (highdpi) {
-        providers_street.push_back(new TileProvider(QString(domain + "street-hires"_L1), true));
+        providers_street.push_back(new TileProvider(QUrl(domain + "street-hires"_L1), true));
         providers_satellite.push_back(
-                new TileProvider(QString(domain + "satellite-hires"_L1), true));
-        providers_cycle.push_back(new TileProvider(QString(domain + "cycle-hires"_L1), true));
-        providers_transit.push_back(new TileProvider(QString(domain + "transit-hires"_L1), true));
+                new TileProvider(QUrl(domain + "satellite-hires"_L1), true));
+        providers_cycle.push_back(new TileProvider(QUrl(domain + "cycle-hires"_L1), true));
+        providers_transit.push_back(new TileProvider(QUrl(domain + "transit-hires"_L1), true));
         providers_nighttransit.push_back(
-                new TileProvider(QString(domain + "night-transit-hires"_L1), true));
-        providers_terrain.push_back(new TileProvider(QString(domain + "terrain-hires"_L1), true));
-        providers_hiking.push_back(new TileProvider(QString(domain + "hiking-hires"_L1), true));
+                new TileProvider(QUrl(domain + "night-transit-hires"_L1), true));
+        providers_terrain.push_back(new TileProvider(QUrl(domain + "terrain-hires"_L1), true));
+        providers_hiking.push_back(new TileProvider(QUrl(domain + "hiking-hires"_L1), true));
     }
-    providers_street.push_back(new TileProvider(QString(domain + "street"_L1)));
-    providers_satellite.push_back(new TileProvider(QString(domain + "satellite"_L1)));
-    providers_cycle.push_back(new TileProvider(QString(domain + "cycle"_L1)));
-    providers_transit.push_back(new TileProvider(QString(domain + "transit"_L1)));
-    providers_nighttransit.push_back(new TileProvider(QString(domain + "night-transit"_L1)));
-    providers_terrain.push_back(new TileProvider(QString(domain + "terrain"_L1)));
-    providers_hiking.push_back(new TileProvider(QString(domain + "hiking"_L1)));
+    providers_street.push_back(new TileProvider(QUrl(domain + "street"_L1)));
+    providers_satellite.push_back(new TileProvider(QUrl(domain + "satellite"_L1)));
+    providers_cycle.push_back(new TileProvider(QUrl(domain + "cycle"_L1)));
+    providers_transit.push_back(new TileProvider(QUrl(domain + "transit"_L1)));
+    providers_nighttransit.push_back(new TileProvider(QUrl(domain + "night-transit"_L1)));
+    providers_terrain.push_back(new TileProvider(QUrl(domain + "terrain"_L1)));
+    providers_hiking.push_back(new TileProvider(QUrl(domain + "hiking"_L1)));
     // Backups
     const QDateTime defaultTs = QDateTime::fromString(QStringLiteral("2016-06-01T00:00:00"), Qt::ISODate);
     providers_street.push_back(
@@ -346,7 +347,7 @@ void QGeoTiledMappingManagerEngineOsm::onProviderResolutionError(const QGeoTileP
 void QGeoTiledMappingManagerEngineOsm::updateMapTypes()
 {
     QList<QGeoMapType> mapTypes;
-    for (QGeoTileProviderOsm * provider : m_providers) {
+    for (QGeoTileProviderOsm * provider : std::as_const(m_providers)) {
         // assume provider are ok until they have been resolved invalid
         if (!provider->isResolved() || provider->isValid())
             mapTypes << provider->mapType();

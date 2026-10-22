@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativecirclemapitem_p.h"
 #include "qdeclarativecirclemapitem_p_p.h"
@@ -42,10 +43,10 @@ QT_BEGIN_NAMESPACE
 
     Internally, a MapCircle is implemented as a many-sided polygon. To
     calculate the radius points it uses a spherical model of the Earth,
-    similar to the atDistanceAndAzimuth method of the \l {coordinate}
-    type. These two things can occasionally have implications for the
-    accuracy of the circle's shape, depending on position and map
-    projection.
+    similar to the atDistanceAndAzimuth method of
+    \l [QtPositioning]{geoCoordinate}. These two things can occasionally
+    have implications for the accuracy of the circle's shape, depending
+    on position and map projection.
 
     \note Dragging a MapCircle (through the use of \l {MouseArea} or \l {PointHandler})
     causes new points to be generated at the same distance (in meters)
@@ -73,7 +74,7 @@ QT_BEGIN_NAMESPACE
     }
     \endcode
 
-    \image api-mapcircle.png
+    \image api-mapcircle.png {Green circle on a map}
 */
 
 /*!
@@ -134,7 +135,7 @@ QDeclarativeCircleMapItem::~QDeclarativeCircleMapItem()
     \qmlproperty int MapCircle::border.width
     \qmlproperty color MapCircle::border.color
 
-    This property is part of the border group property.
+    This property is part of the border grouped property.
     The border property holds the width and color used to draw the border of the circle.
     The width is in pixels and is independent of the zoom level of the map.
 

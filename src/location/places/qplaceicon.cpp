@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qplaceicon.h"
 #include "qplaceicon_p.h"
@@ -160,6 +161,11 @@ QUrl QPlaceIcon::url(const QSize &size) const
 }
 
 /*!
+    \property QPlaceIcon::parameters
+    \brief the set of parameters for the icon that are manager or plugin specific.
+*/
+
+/*!
     Returns a set of parameters for the icon that are manager/plugin specific.
     These parameters are used by the manager to return the appropriate
     URL when url() is called and to specify locations to save to
@@ -180,6 +186,11 @@ void QPlaceIcon::setParameters(const QVariantMap &parameters)
 {
     d->parameters = parameters;
 }
+
+/*!
+    \property QPlaceIcon::manager
+    \brief the manager of this icon.
+*/
 
 /*!
     Returns the manager that this icon is associated with.

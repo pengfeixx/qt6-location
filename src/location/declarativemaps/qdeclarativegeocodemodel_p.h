@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVEGEOCODEMODEL_H
 #define QDECLARATIVEGEOCODEMODEL_H
@@ -38,8 +39,6 @@ class Q_LOCATION_EXPORT QDeclarativeGeocodeModel : public QAbstractListModel, pu
 {
     Q_OBJECT
     QML_NAMED_ELEMENT(GeocodeModel)
-    Q_ENUMS(Status)
-    Q_ENUMS(GeocodeError)
 
     Q_PROPERTY(QDeclarativeGeoServiceProvider *plugin READ plugin WRITE setPlugin NOTIFY pluginChanged)
     Q_PROPERTY(bool autoUpdate READ autoUpdate WRITE setAutoUpdate NOTIFY autoUpdateChanged)
@@ -60,6 +59,7 @@ public:
         Loading,
         Error
     };
+    Q_ENUM(Status)
 
     enum GeocodeError {
         NoError = QGeoCodeReply::NoError,
@@ -75,6 +75,7 @@ public:
         UnknownParameterError = 100,
         MissingRequiredParameterError
     };
+    Q_ENUM(GeocodeError)
 
     enum Roles {
         LocationRole = Qt::UserRole + 1

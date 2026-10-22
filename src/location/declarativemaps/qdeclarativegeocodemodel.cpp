@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qdeclarativegeocodemodel_p.h"
 #include "error_messages_p.h"
@@ -178,6 +179,8 @@ void QDeclarativeGeocodeModel::abortRequest()
 {
     if (reply_) {
         reply_->abort();
+    }
+    if (reply_) {
         reply_->deleteLater();
         reply_ = 0;
     }
@@ -326,14 +329,14 @@ void QDeclarativeGeocodeModel::setBounds(const QVariant &boundingArea)
 }
 
 /*!
-    \qmlproperty geoshape QtLocation::GeocodeModel::bounds
+    \qmlproperty geoShape QtLocation::GeocodeModel::bounds
 
     This property holds the bounding area used to limit the results to those
     within the area. This is particularly useful if query is only partially filled out,
     as the service will attempt to (reverse) geocode all matches for the specified data.
 
-    Accepted types are \l {georectangle} and
-    \l {geocircle}.
+    Accepted types are \l {geoRectangle} and
+    \l {geoCircle}.
 */
 QVariant QDeclarativeGeocodeModel::bounds() const
 {
@@ -603,7 +606,7 @@ void QDeclarativeGeocodeModel::cancel()
 
     \list
     \li Address - Geocoding (address to coordinate)
-    \li \l {coordinate} - Reverse geocoding (coordinate to address)
+    \li \l [QtPositioning]{geoCoordinate} - Reverse geocoding (coordinate to address)
     \li string - Geocoding (address to coordinate)
     \endlist
 */
@@ -682,7 +685,8 @@ void QDeclarativeGeocodeModel::setQuery(const QVariant &query)
     is false.
 
     If setting this value to 'true' and using an Address or
-    \l {coordinate} as the query, note that any change at all in the
+    \l [QtPositioning]{geoCoordinate} as the query, note that any change at all
+    in the
     object's properties will trigger a new request to be sent. If you are adjusting many
     properties of the object whilst autoUpdate is enabled, this can generate large numbers of
     useless (and later discarded) requests.

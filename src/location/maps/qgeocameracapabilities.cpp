@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #include "qgeocameracapabilities_p.h"
 
@@ -140,7 +141,7 @@ bool QGeoCameraCapabilities::isValid() const
 }
 
 /*!
-    \qmlproperty qreal cameraCapabilities::minimumZoomLevel
+    \qmlproperty real cameraCapabilities::minimumZoomLevel
 
     This read-only property holds the minimum available zoom level with this map type.
 */
@@ -171,7 +172,7 @@ double QGeoCameraCapabilities::minimumZoomLevelAt256() const
 }
 
 /*!
-    \qmlproperty qreal cameraCapabilities::maximumZoomLevel
+    \qmlproperty real cameraCapabilities::maximumZoomLevel
 
     This read-only property holds the maximum available zoom level with this map type.
 */
@@ -259,7 +260,7 @@ bool QGeoCameraCapabilities::supportsTilting() const
 }
 
 /*!
-    \qmlproperty qreal cameraCapabilities::minimumTilt
+    \qmlproperty real cameraCapabilities::minimumTilt
 
     This read-only property holds the minimum available tilt with this map type.
 */
@@ -283,7 +284,7 @@ double QGeoCameraCapabilities::minimumTilt() const
 }
 
 /*!
-    \qmlproperty qreal cameraCapabilities::maximumTilt
+    \qmlproperty real cameraCapabilities::maximumTilt
 
     This read-only property holds the maximum available tilt with this map type.
 */
@@ -307,7 +308,7 @@ double QGeoCameraCapabilities::maximumTilt() const
 }
 
 /*!
-    \qmlproperty qreal cameraCapabilities::minimumFieldOfView
+    \qmlproperty real cameraCapabilities::minimumFieldOfView
 
     This read-only property holds the minimum available field of view with this map type.
 */
@@ -332,7 +333,7 @@ double QGeoCameraCapabilities::minimumFieldOfView() const
 }
 
 /*!
-    \qmlproperty qreal cameraCapabilities::maximumFieldOfView
+    \qmlproperty real cameraCapabilities::maximumFieldOfView
 
     This read-only property holds the maximum available field of view with this map type.
 */

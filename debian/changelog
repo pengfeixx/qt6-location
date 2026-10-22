@@ -1,72 +1,7 @@
-qt6-location (6.8.0-0deepin1) unstable; urgency=medium
+qt6-location (6.12.0-1) unstable; urgency=medium
 
-  * update Qt 6.8.0.
+  * Cleanroom rebuild against Qt 6.12.0 upstream tarball
+    (reproduce per qt6.12-build/docs/Qt6.12净室打包记录.md).
 
- -- lichenggang <lichenggang@deepin.org>  Wed, 02 Apr 2025 10:22:31 +0800
+ -- Qt 6.12 Cleanroom <root@localhost>  Mon, 19 Oct 2026 12:00:00 +0800
 
-qt6-location (6.7.2-4) unstable; urgency=medium
-
-  [ Sandro Knauß ]
-  * Use dh-sequence-pkgkde-symbolshelper instead of --with.
-  * Use dh_qmldeps to detect QML dependencies.
-  * Add qml6-module-qtlocation to dev package for QML dependency
-    detection.
-
-  [ Patrick Franz ]
-  * Fix dependencies for the private symbols.
-  * Install cmake-files for QmlPlugins.
-
- -- Patrick Franz <deltaone@debian.org>  Wed, 06 Nov 2024 22:34:47 +0100
-
-qt6-location (6.7.2-3) unstable; urgency=medium
-
-  * Upload to unstable.
-
- -- Patrick Franz <deltaone@debian.org>  Sat, 05 Oct 2024 01:48:38 +0200
-
-qt6-location (6.7.2-2) experimental; urgency=medium
-
-  [ Patrick Franz ]
-  * Fix handling of private symbols.
-
- -- Patrick Franz <deltaone@debian.org>  Sun, 08 Sep 2024 15:25:00 +0200
-
-qt6-location (6.7.2-1) experimental; urgency=medium
-
-  [ Patrick Franz ]
-  * New upstream release (6.7.2).
-  * Bump Qt B-Ds to 6.7.2.
-  * Bump Standards-Version to 4.7.0 (no changes needed).
-  * Update symbols from buildlogs.
-
- -- Patrick Franz <deltaone@debian.org>  Sun, 01 Sep 2024 19:12:47 +0200
-
-qt6-location (6.6.2-2) unstable; urgency=medium
-
-  [ Patrick Franz ]
-  * Upload to unstable.
-
- -- Patrick Franz <deltaone@debian.org>  Thu, 06 Jun 2024 18:26:09 +0200
-
-qt6-location (6.6.2-1) experimental; urgency=medium
-
-  [ Patrick Franz ]
-  * New upstream release (6.6.2).
-  * Bump Qt B-Ds to 6.6.2.
-  * Build-depend on pkgconf instead of pkg-config as the latter has been
-    superseded by the former.
-
- -- Patrick Franz <deltaone@debian.org>  Sat, 17 Feb 2024 15:36:20 +0100
-
-qt6-location (6.6.1-2) experimental; urgency=medium
-
-  [ Patrick Franz ]
-  * Update symbols from buildlogs.
-
- -- Patrick Franz <deltaone@debian.org>  Fri, 19 Jan 2024 00:49:49 +0100
-
-qt6-location (6.6.1-1) experimental; urgency=medium
-
-  * Initial release. (Closes: #1059231)
-
- -- Patrick Franz <deltaone@debian.org>  Wed, 17 Jan 2024 00:32:53 +0100

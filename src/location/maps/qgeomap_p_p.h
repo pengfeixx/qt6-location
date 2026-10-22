@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 #ifndef QGEOMAP_P_P_H
 #define QGEOMAP_P_P_H
 
@@ -20,9 +21,12 @@
 #include <QtLocation/private/qgeoprojection_p.h>
 #include <QtLocation/private/qgeomap_p.h>
 #include <QtLocation/private/qgeocameracapabilities_p.h>
+
 #include <QtCore/private/qobject_p.h>
+#include <QtCore/qpointer.h>
 #include <QtCore/QSize>
 #include <QtCore/QList>
+
 #include "qgeomap_p.h"
 
 

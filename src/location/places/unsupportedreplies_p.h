@@ -1,5 +1,6 @@
 // Copyright (C) 2015 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef UNSUPPORTEDREPLIES_P_H
 #define UNSUPPORTEDREPLIES_P_H
@@ -24,6 +25,8 @@
 
 #include "qplacematchreply.h"
 #include "qplacemanagerengine.h"
+
+QT_BEGIN_NAMESPACE
 
 class Q_LOCATION_EXPORT QPlaceDetailsReplyUnsupported : public QPlaceDetailsReply
 {
@@ -191,5 +194,7 @@ public:
                                   Q_ARG(QPlaceReply *, this));
     }
 };
+
+QT_END_NAMESPACE
 
 #endif

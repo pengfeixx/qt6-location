@@ -1,5 +1,6 @@
 // Copyright (C) 2022 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only
+// Qt-Security score:significant reason:default
 
 #ifndef QDECLARATIVEGEOMAPQUICKITEM_H
 #define QDECLARATIVEGEOMAPQUICKITEM_H
@@ -23,6 +24,8 @@
 #include <QtLocation/private/qdeclarativegeomap_p.h>
 #include <QtLocation/private/qdeclarativegeomapitembase_p.h>
 #include <QtPositioning/qgeoshape.h>
+
+#include <QtCore/qpointer.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -67,6 +70,8 @@ public:
 
     const QGeoShape &geoShape() const override;
     void setGeoShape(const QGeoShape &shape) override;
+
+    bool contains(const QPointF &point) const override;
 
 Q_SIGNALS:
     void coordinateChanged();
